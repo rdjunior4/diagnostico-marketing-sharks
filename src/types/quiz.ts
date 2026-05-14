@@ -85,8 +85,10 @@ export interface QuizResult {
   recommendations: Recommendation[];
   respondent: {
     companyName: string;
+    cnpj: string;
     respondentName: string;
     email: string;
+    phone: string;
     segment: string;
   };
   submittedAt: string;
@@ -98,8 +100,10 @@ export interface QuizState {
   answers: Record<string, Answer>;
   respondent: {
     companyName: string;
+    cnpj: string;
     respondentName: string;
     email: string;
+    phone: string;
     segment: string;
   };
   direction: 1 | -1;

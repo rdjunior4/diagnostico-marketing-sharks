@@ -16,7 +16,7 @@ export default function DiagnosticoPage() {
   const [screen, setScreen] = useState<Screen>('opening');
   const [currentQIndex, setCurrentQIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, Answer>>({});
-  const [respondent, setRespondent] = useState({ companyName: '', respondentName: '', email: '', segment: '' });
+  const [respondent, setRespondent] = useState({ companyName: '', cnpj: '', respondentName: '', email: '', phone: '', segment: '' });
   const [currentBlockIntro, setCurrentBlockIntro] = useState(1);
   const [direction, setDirection] = useState<1 | -1>(1);
   const [result, setResult] = useState<QuizResult | null>(null);
@@ -40,7 +40,7 @@ export default function DiagnosticoPage() {
 
   const handleStart = useCallback(() => setScreen('registration'), []);
 
-  const handleRegistration = useCallback((data: typeof respondent) => {
+  const handleRegistration = useCallback((data: { companyName: string; cnpj: string; respondentName: string; email: string; phone: string; segment: string }) => {
     setRespondent(data);
     setCurrentBlockIntro(1);
     setSeenBlocks(new Set([1]));

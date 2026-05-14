@@ -1,5 +1,5 @@
 'use client';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { QuizResult } from '@/types/quiz';
 import Image from 'next/image';
@@ -139,6 +139,32 @@ function SwotGrid({ swot }: { swot: QuizResult['swot'] }) {
 export function ResultsScreen({ result, onRestart }: Props) {
   const { generalScore, maturityLevel, blockScores, swot, recommendations, respondent } = result;
   const resultsRef = useRef<HTMLDivElement>(null);
+  const submittedRef = useRef(false);
+
+  useEffect(() => {
+    if (submittedRef.current) return;
+    submittedRef.current = true;
+
+    const submit = async () => {
+      try {
+        await fetch('/api/submit-quiz', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ...respondent,
+            generalScore,
+            maturityLevel,
+            blockScores,
+            swot,
+            recommendations,
+          }),
+        });
+      } catch (err) {
+        console.error('Erro ao salvar resultado:', err);
+      }
+    };
+    submit();
+  }, [respondent, generalScore, maturityLevel, blockScores, swot, recommendations]);
 
   const handleExportPDF = async () => {
     if (!resultsRef.current) return;

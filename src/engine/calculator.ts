@@ -117,7 +117,7 @@ export function generateRecommendations(blockScores: BlockScore[]): Recommendati
 
 export function generateFullResult(
   answers: Record<string, Answer>,
-  respondent: { companyName: string; respondentName: string; email: string; segment: string }
+  respondent: { companyName: string; cnpj: string; respondentName: string; email: string; phone: string; segment: string }
 ): QuizResult {
   const blockScores = calculateBlockScores(answers);
   const generalScore = calculateGeneralScore(blockScores);
